@@ -1,10 +1,10 @@
 whill_odometry:
   ros__parameters:
     # 入力（geometry_msgs/Vector3Stamped、左右輪の並進速度 [km/h]）
-    input_topic_name: "/Drp5_whill_red/whill_node/motor_speed_ts"
+    input_topic_name: "/Drp5_whill_blue/whill_node/motor_speed_ts"
     # true : 入力の header.stamp を使う（stamp が 0 のときは受信時刻で代用）
     # false: 受信時刻を付ける
-    use_stamped_input: false
+    use_stamped_input: true
     tread_width: 0.495            # [m]
     # motor_speed は x = 右輪、y = 左輪。右輪は前進で負なので反転する。
     # 生の値に掛けて「前進正」に揃える係数（左, 右）
