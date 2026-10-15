@@ -2,7 +2,7 @@ whill_odometry:
   ros__parameters:
     # 入力（geometry_msgs/Vector3Stamped、左右輪の並進速度 [km/h]）
     input_topic_name: "/Drp5_whill_blue/whill_node/motor_speed_ts"
-    # true : 入力の header.stamp を使う（stamp が 0 のときは受信時刻で代用）
+    # true : 入力の header.stamp を使う
     # false: 受信時刻を付ける
     use_stamped_input: true
     tread_width: 0.495            # [m]

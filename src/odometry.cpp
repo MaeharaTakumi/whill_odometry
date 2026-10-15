@@ -50,11 +50,8 @@ private:
   {
     const auto & speed = msg->vector;
 
-    // motor_speed_ts の header.stamp は停止中に 0 になることがあるため、
-    // その場合は use_stamped_input でも受信時刻で代用する
-    const rclcpp::Time msg_stamp(msg->header.stamp, get_clock()->get_clock_type());
-    rclcpp::Time stamp =
-      (use_stamped_input_ && msg_stamp.nanoseconds() != 0) ? msg_stamp : now();
+    rclcpp::Time stamp = use_stamped_input_ ?
+      rclcpp::Time(msg->header.stamp, get_clock()->get_clock_type()) : now();
     if (has_prev_ && stamp <= prev_stamp_) {
       // 時刻が戻った・重なった場合も単調増加を保つ
       stamp = prev_stamp_ + rclcpp::Duration(0, 1);
