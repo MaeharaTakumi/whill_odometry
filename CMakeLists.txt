@@ -14,6 +14,6 @@ add_executable(whill_odometry_node src/odometry.cpp)
 ament_target_dependencies(whill_odometry_node rclcpp geometry_msgs nav_msgs)
 
 install(TARGETS whill_odometry_node DESTINATION lib/${PROJECT_NAME})
-install(DIRECTORY config launch DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY param launch DESTINATION share/${PROJECT_NAME})
 
 ament_package()

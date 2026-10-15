@@ -7,7 +7,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     param = os.path.join(
-        get_package_share_directory('whill_odometry'), 'config', 'odometry.yaml')
+        get_package_share_directory('whill_odometry'), 'param', 'odometry.yaml')
 
     return LaunchDescription([
         Node(
