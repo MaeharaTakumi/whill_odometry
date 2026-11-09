@@ -13,7 +13,3 @@ whill_odometry:
     # 出力の座標系（twist は child_frame_id = base_link で表す）
     odom_frame_id: "odom"
     base_frame_id: "base_link"
-
-    # 共分散（分散）。0.1 km/h 量子化の下限より大きめの仮値
-    var_v: 2.5e-3                 # [m^2/s^2]
-    var_omega: 5.0e-3             # [rad^2/s^2]

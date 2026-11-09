@@ -25,8 +25,6 @@ public:
     const auto sign = declare_parameter<std::vector<double>>("wheel_sign", {1.0, -1.0});
     odom_frame_id_ = declare_parameter<std::string>("odom_frame_id", "odom");
     base_frame_id_ = declare_parameter<std::string>("base_frame_id", "base_link");
-    var_v_ = declare_parameter<double>("var_v", 2.5e-3);
-    var_omega_ = declare_parameter<double>("var_omega", 5.0e-3);
 
     if (sign.size() != 2) {
       throw std::invalid_argument("wheel_sign は 2 要素（左, 右）で指定する");
@@ -75,13 +73,7 @@ private:
     }
     odom.twist.twist.linear.x = v;
     odom.twist.twist.angular.z = omega;
-    // 並びは (x, y, z, roll, pitch, yaw)。差動二輪なので y, z, roll, pitch は拘束で 0
-    odom.twist.covariance[0] = var_v_;
-    odom.twist.covariance[7] = 1.0e-6;
-    odom.twist.covariance[14] = 1.0e-6;
-    odom.twist.covariance[21] = 1.0e-6;
-    odom.twist.covariance[28] = 1.0e-6;
-    odom.twist.covariance[35] = var_omega_;
+    // twist の共分散は付けない（観測ノイズは ekf_localizer が計算する）
     odom_pub_->publish(odom);
   }
 
@@ -92,7 +84,6 @@ private:
   double tread_width_;
   double sign_l_, sign_r_;
   std::string odom_frame_id_, base_frame_id_;
-  double var_v_, var_omega_;
 
   bool has_prev_{false};
   rclcpp::Time prev_stamp_;
