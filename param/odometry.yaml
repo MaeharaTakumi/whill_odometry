@@ -10,14 +10,9 @@ whill_odometry:
     # 生の値に掛けて「前進正」に揃える係数（左, 右）
     wheel_sign: [1.0, -1.0]
 
-    # 出力の座標系（twist / accel は child_frame_id = base_link で表す）
+    # 出力の座標系（twist は child_frame_id = base_link で表す）
     odom_frame_id: "odom"
     base_frame_id: "base_link"
-
-    # 加速度は速度の差分に 1 次ローパスを掛けて求める [s]。0 でフィルタなし
-    accel_time_constant: 0.2
-    # 受信間隔がこれを超えたら差分を取らず加速度を 0 に戻す [s]
-    input_timeout: 0.5
 
     # 共分散（分散）。0.1 km/h 量子化の下限より大きめの仮値
     var_v: 2.5e-3                 # [m^2/s^2]
