@@ -2,6 +2,9 @@
 // 車体の速度 v, omega に換算し、タイムスタンプを付けて配信する。
 //
 //   出力 /wheelchair/odom : nav_msgs/Odometry         （twist のみ。pose は使わない）
+//
+// パラメータの既定値はこのコードにある（パラメータファイルはこのパッケージに置かない。2026-11-11 に param/odometry.yaml をやめた）。
+// 車椅子ごとの値（input_topic_name など）は localization_bringup の param/<env>/whill_odometry.yaml。
 
 #include <memory>
 #include <string>
@@ -19,8 +22,8 @@ public:
   {
     const auto topic = declare_parameter<std::string>(
       "input_topic_name", "/Drp5_whill_red/whill_node/motor_speed_ts");
-    // true: 入力の header.stamp を使う、false: 受信時刻を付ける
-    use_stamped_input_ = declare_parameter<bool>("use_stamped_input", false);
+    // true: 入力の header.stamp（ラズパイの時計）を使う、false: 受信時刻を付ける
+    use_stamped_input_ = declare_parameter<bool>("use_stamped_input", true);
     tread_width_ = declare_parameter<double>("tread_width", 0.495);
     const auto sign = declare_parameter<std::vector<double>>("wheel_sign", {1.0, -1.0});
     odom_frame_id_ = declare_parameter<std::string>("odom_frame_id", "odom");
