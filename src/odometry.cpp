@@ -54,10 +54,11 @@ private:
     constexpr double kKmphToMps = 1.0 / 3.6;
     // motor_speed は x = 右輪（前進で負）、y = 左輪（前進で正）。
     // 前進で v > 0 は実機で確認済み。左旋回で omega < 0 になったため x/y を右/左と判断した
-    const double w_l = speed.y * kKmphToMps * sign_l_;
-    const double w_r = speed.x * kKmphToMps * sign_r_;
-    const double v = (w_l + w_r) * 0.5;
-    const double omega = (w_r - w_l) / tread_width_;
+    // v_left, v_right は左右輪の並進速度 [m/s]（前進正）
+    const double v_left = speed.y * kKmphToMps * sign_l_;
+    const double v_right = speed.x * kKmphToMps * sign_r_;
+    const double v = (v_left + v_right) * 0.5;
+    const double omega = (v_right - v_left) / tread_width_;
 
     has_prev_ = true;
     prev_stamp_ = stamp;
